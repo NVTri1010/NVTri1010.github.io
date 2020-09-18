@@ -1,0 +1,106 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+.container {
+  max-width: 600px;
+  width: 100%;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+.header {
+  padding: 2rem 1rem;
+  border-bottom: 3px solid #333;
+  color: #333;
+  text-align: center;
+}
+.header h1 {
+  font-size: 4rem;
+  font-weight: 100;
+  margin: 0;
+}
+.rolesWrapper {
+  position: absolute;
+  right: 0;
+  bottom: 30%;
+  transform: rotate(-90deg);
+}
+.roles {
+  padding: 2rem 0;
+  margin: 0;
+  list-style: none;
+}
+.role {
+  color: #333;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+.name {
+  font-size: 2rem;
+  padding: 2rem 0;
+  color: #333;
+  text-transform: uppercase;
+  font-weight: 100;
+}
+.imgWrapper {
+  position: relative;
+  height: 450px;
+  padding-left: 15%;
+}
+.imgWrapper img {
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.moveLeft:hover svg {
+  animation: move-left 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+  animation-fill-mode: forwards;
+}
+.moveRight:hover svg {
+  animation: move-right 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes move-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-20px);
+  }
+}
+@keyframes move-right {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(20px);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .imgWrapper {
+    padding-left: 0;
+    text-align: center;
+    height: auto;
+  }
+  .imgWrapper img {
+    height: 300px;
+  }
+  .rolesWrapper {
+    position: static;
+    transform: rotate(0);
+  }
+  .roles {
+    padding-top: 0;
+    padding-bottom: 1rem;
+    text-align: right;
+  }
+}
