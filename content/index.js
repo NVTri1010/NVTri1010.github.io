@@ -1,41 +1,29 @@
-import Post1 from './1.mdx'
-
-export default [
+const content = [
   {
     id: 1,
-    title: 'My very first widget in Flutter',
-    img:
-      'https://1stwebdesigner.com/wp-content/uploads/2020/09/StockSnap_AO8NDC5UDL-850x510.jpg',
+    title: 'Recoil - Thư viện quản lý state cho React',
+    img: 'https://recoiljs.org/img/og-image.png',
     description:
-      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae delectus odit impedit, modi voluptates ducimus aliquam inventore accusantium, esse possimus tempora magnam error laborum aperiam! Rerum corrupti tempora repellendus totam!',
-    createdDate: new Date(),
-    content: Post1
+      'Khi việc chia sẻ data giữa các cấp component trong React gặp khó khăn, bạn sẽ nghĩ tới Redux. Tuy nhiên, Redux hay các thư viện quản lý state khác của react quá phức tạp hoặc chưa thể làm hài lòng bạn. Recoil chính là một giải pháp khác.',
+    createdDate: new Date('2020/05/08 10:50:00')
+  },
+  {
+    id: 2,
+    title: 'Tutorial: Messenger List - My Very First Flutter Widget',
+    img: 'https://flutter.dev/images/flutter-logo-sharing.png',
+    description:
+      "This is just the post about my experience when I first build a Flutter widget. If you are the person who are getting used to Flutter, don't hesitate to experience with me.",
+    createdDate: new Date('2020/09/18 14:19:01')
+  },
+  {
+    id: 3,
+    title: 'React Native vs Flutter',
+    img:
+      'https://www.mediaan.com/wp-content/uploads/2019/08/flutter-vs-react-native.jpg',
+    description:
+      'In this post, I will follow the aspect of the Web Developer, who has React and JS as cores, to write about exciting new things as well as the difficulties on my way to learn about Flutter.',
+    createdDate: new Date('2020/09/25 11:15:59')
   }
-  // {
-  //   id: 2,
-  //   title: 'This is just the second one',
-  //   img:
-  //     'https://1stwebdesigner.com/wp-content/uploads/2020/09/StockSnap_AO8NDC5UDL-850x510.jpg',
-  //   description:
-  //     'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae delectus odit impedit, modi voluptates ducimus aliquam inventore accusantium, esse possimus tempora magnam error laborum aperiam! Rerum corrupti tempora repellendus totam!',
-  //   createdDate: new Date()
-  // },
-  // {
-  //   id: 3,
-  //   title: 'And this is the third one',
-  //   img:
-  //     'https://1stwebdesigner.com/wp-content/uploads/2020/09/StockSnap_AO8NDC5UDL-850x510.jpg',
-  //   description:
-  //     'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae delectus odit impedit, modi voluptates ducimus aliquam inventore accusantium, esse possimus tempora magnam error laborum aperiam! Rerum corrupti tempora repellendus totam!',
-  //   createdDate: new Date()
-  // },
-  // {
-  //   id: 4,
-  //   title: 'So, this will be the last one',
-  //   img:
-  //     'https://1stwebdesigner.com/wp-content/uploads/2020/09/StockSnap_AO8NDC5UDL-850x510.jpg',
-  //   description:
-  //     'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae delectus odit impedit, modi voluptates ducimus aliquam inventore accusantium, esse possimus tempora magnam error laborum aperiam! Rerum corrupti tempora repellendus totam!',
-  //   createdDate: new Date()
-  // }
-]
+].reverse()
+
+export default content
