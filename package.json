@@ -15,12 +15,16 @@
     "@svgr/webpack": "^5.4.0",
     "classnames": "^2.2.6",
     "date-fns": "^2.16.1",
+    "mdx-prism": "^0.3.1",
     "next": "9.5.3",
+    "next-mdx-enhanced": "^4.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-markdown": "^4.3.1"
+    "react-syntax-highlighter": "^13.5.3",
+    "reading-time": "^1.2.0"
   },
   "devDependencies": {
-    "execa": "latest"
+    "execa": "latest",
+    "rehype": "11.0.0"
   }
 }

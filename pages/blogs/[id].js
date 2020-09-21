@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
+import classnames from 'classnames'
 
 import content from 'content'
 import { BlogLayout } from 'components'
@@ -35,10 +36,12 @@ const BlogDetail = ({ data: rawData }) => {
       </Head>
       <BlogLayout>
         <div className={styles.container}>
-          <h2>{title}</h2>
+          <h2 className={styles.title}>{title}</h2>
           <div className={styles.date}>{formatDate(createdDate)}</div>
+          <div className={classnames([styles.content, 'fade-in'])}>
+            {!!content && <Component />}
+          </div>
         </div>
-        {!!content && <Component />}
       </BlogLayout>
     </>
   )

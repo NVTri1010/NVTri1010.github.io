@@ -1,7 +1,7 @@
 import format from 'date-fns/format'
 
 export const formatDate = raw => {
-  return format(raw, 'd MMM, yyyy')
+  return format(raw, 'MMMM d, yyyy')
 }
 
 export const formatSlug = text => {

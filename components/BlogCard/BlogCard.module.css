@@ -1,6 +1,7 @@
 .container {
   width: 33%;
   padding: 1rem;
+  font-family: 'Nunito';
 }
 .container:hover {
   transition: 0.3s cubic-bezier(0.65, 0, 0.35, 1);
@@ -10,11 +11,14 @@
 .img {
   width: 100%;
   padding-top: 66.66%;
+  border-radius: 3px;
 }
 .title {
   font-size: 1.5rem;
+  font-weight: 900;
   color: black;
   text-align: center;
+  margin-bottom: 0.5rem;
 }
 .date {
   color: #ccc;
