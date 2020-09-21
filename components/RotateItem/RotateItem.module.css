@@ -1,0 +1,21 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+.main {
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.clone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(120%);
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.wrapper:hover .main {
+  transform: translateY(-120%);
+}
+.wrapper:hover .clone {
+  transform: translateY(0);
+}

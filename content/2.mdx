@@ -1,0 +1,482 @@
+# Introduction
+
+A brief about myself: I'm a web developer, and **_ReactJS_** is my strong. In addition, I've used **_React Native_** (a cross-platform library which also use JS) for building several native apps. Then, I heard about Flutter, and its impressive improvement in 2019. And this post was written when I was starting to learn **Flutter**.
+In this post, I will try to implement a horizontal list of a very popular mobile app: _Facebook Messenger_. I will try all my best to make this widget has flexible height, that means it can be reused in many layouts. And if you are getting to know **Flutter** (like me), I believe that this post will give you a few experiences.
+
+![Model Image](https://i.imgur.com/HiYnwpe.png#center)
+
+---
+
+# Start to implement
+
+## 1. Preparing
+
+Of course, the first thing that you need is creating a new Flutter project. If you don't know how to do that, **Flutter** had a very detail guide about this: https://flutter.dev/docs/get-started/test-drive
+
+## 2. Create model, mock data
+
+Create _user_model.dart_ to store User model:
+
+```dart
+class UserModel {
+  int id;
+  String img;
+  String name;
+  bool active;
+  bool hasStory;
+
+  UserModel({
+    this.id,
+    this.img,
+    this.name,
+    this.active = false,
+    this.hasStory = false,
+  });
+}
+```
+
+Then, we will create _data.dart_ file to store our mock data:
+
+```dart
+import 'package:list_item_demo/user_model.dart';
+
+var tmpId = 1;
+const mockImages = [
+  'https://www.w3schools.com/howto/img_avatar.png',
+  'https://www.w3schools.com/howto/img_avatar2.png',
+  'https://www.w3schools.com/w3images/avatar2.png',
+  'https://www.w3schools.com/w3images/avatar5.png',
+  'https://www.w3schools.com/w3images/avatar6.png'
+];
+
+List<UserModel> mockUsers = [
+  UserModel(
+    id: tmpId++,
+    img: mockImages[tmpId % mockImages.length],
+    active: true,
+    name: 'Person 1',
+    hasStory: true,
+  ),
+  UserModel(
+    id: tmpId++,
+    img: mockImages[tmpId % mockImages.length],
+    active: true,
+    name: 'Person 2',
+  ),
+  UserModel(
+    id: tmpId++,
+    img: mockImages[tmpId % mockImages.length],
+    name: 'Person 3',
+  ),
+  UserModel(
+    id: tmpId++,
+    img: mockImages[tmpId % mockImages.length],
+    name: 'Person 4',
+  ),
+  UserModel(
+    id: tmpId++,
+    img: mockImages[tmpId % mockImages.length],
+    name: 'Person 5',
+  ),
+];
+```
+
+Okay, we've done the preparing for _Model_ and _Data_.
+
+## 3. Create Users List widget
+
+Now, we are going to do the most important (and also the most difficult) step in this tutorial: implement **_Users List_** and **_User Item_** widget.
+First, we will create _users_list.dart_, then create **_Users List_** widget:
+
+```dart
+class UsersListWidget extends StatelessWidget {
+  final List<UserModel> data;
+
+  UsersListWidget({this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> listWidgets = [];
+
+    return ListView(
+      scrollDirection: Axis.horizontal,
+      children: listWidgets,
+    );
+  }
+}
+```
+
+- _Note:_ we just need _StatelessWidget_ here, because we don't need state in this widget. You can read more about the differences of _Stateful_ and _Stateless_ in [this link](https://flutter.dev/docs/development/ui/interactive#:~:text=If%20a%20widget%20can%20change,are%20examples%20of%20stateless%20widgets.&text=A%20widget's%20state%20is%20stored,widget's%20state%20from%20its%20appearance).
+
+After that, use _UsersListWidget_ in _main.dart_:
+
+```dart
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  final String title;
+  final List<UserModel> data = mockUsers;
+
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Container(
+        height: 140,	// if we success, the layout will be ok although we change this height to any value.
+        child: UsersListWidget(data: widget.data),
+      ),
+    );
+  }
+}
+```
+
+Then, we will move to the implement of **_User Item_** widget:
+
+Create the widget:
+
+```dart
+class UserItemWidget extends StatelessWidget {
+  final UserModel data;
+
+  UserItemWidget({this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+    	children: [],
+    );
+  }
+}
+```
+
+As we can see, there are several part in an **_User item_**: <u>_Rounded Avatar Image_</u>, <u>_User's Name_</u>, <u>_Story Circle_</u>, and _<u>Active Indicator</u>_. So, we will do each part one by one in order. And <u>_avatar_</u> is the first one:
+
+- Add an square image by using _Aspect Ratio_:
+
+```dart
+@override
+Widget build(BuildContext context) {
+  return Column(
+    children: [
+      Expanded(
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: Ink.image(
+            fit: BoxFit.cover,
+            image: NetworkImage(data.img),	// to get the image from the url
+          ),
+        ),
+      )
+    ],
+  );
+}
+```
+
+![Square Images](https://i.imgur.com/aJTzATf.png#center)
+
+- Then, make the images rounded by adding _Material_ widget with _MaterialType.circle_:
+
+```dart
+AspectRatio(
+  aspectRatio: 1,
+  child: Material(
+    clipBehavior: Clip.hardEdge,	// this line
+    type: MaterialType.circle,	// and this line make the image become round
+    color: Colors.transparent,
+    child: Ink.image(
+      fit: BoxFit.cover,
+      image: NetworkImage(data.img),
+    ),
+  ),
+),
+```
+
+- Add some space between items:
+
+```dart
+return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Expanded( ....
+```
+
+- We will have this result. And that also means _Rounded Avatar Image_ has been done.
+
+![Completed Avatar](https://i.imgur.com/gFNLdvx.png#center)
+
+Next is <u>_User's Name Text_</u>:
+
+- Follow the design, _Name Text_ is placed under _Avatar_. So, we will put the _Text_ right under _Expanded_ of _Avatar_ widget:
+
+```dart
+Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Expanded(...),
+          Text(
+            data.name,
+            maxLines: 2,	// text will have 2 lines limitation.
+            overflow: TextOverflow.ellipsis,	// if text is longer than 2 lines, will show "..."
+          )
+        ],
+      ),
+    );
+  }
+```
+
+- The result will look ok. **BUT**, when you try chaging user's name to a very long text, the result is different from Messenger's. The long text will make the width of item wider instead of breaking into the second line.
+
+  ![THIS IS LONG TEXT FAIL PICTURE](https://i.imgur.com/LkxLAmU.png#center)
+
+  ==> **_EXPLANATION_**: we want to make the width of the _Item_ base on the _image_ but not the _text_. But, _Column_ widget doesn't have <u>restriction</u> for the <u>width</u>, so it will have the width of its widest child. In order to get what we want, we need to use another widget: _Stack_. _Stack_ also contains list of widgets (like _Column_), but its dimension is just base on the first child - that's what we want:
+
+```dart
+return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Expanded(
+            child: Stack(
+              children: [
+                AspectRatio(	// Avatar is first child => decide dimension of Stack.
+                  aspectRatio: 1,
+                  child: Material(...),
+                ),
+                Positioned.fill(	// use this widget to place other children of Stack base on first child.
+                  child: Align(
+                    alignment: Alignment.bottomCenter,	// Text is placed at the bottom center of the first.
+                    child: Text(
+                      data.name,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+```
+
+![Text Name 2 lines but overlap](https://i.imgur.com/sTXKozS.png#center)
+
+- Seems that the text can break into 2 lines and has ellipsis correctly, but it's overlap with the Avatar (it's the result of _Stack_). So, we will add few widget to correct it:
+
+```dart
+double marginAvatarName = 4;	// space between avatar and name
+double nameMaxHeight = 35;	// max height of user's name (2 lines)
+```
+
+```dart
+return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Expanded(
+            child: Stack(
+              children: [
+                Column(	// add Column widget here, to place other items under Avatar
+                  children: [
+                    Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Material(
+                          clipBehavior: Clip.hardEdge,
+                          type: MaterialType.circle,
+                          color: Colors.transparent,
+                          child: Ink.image(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(data.img),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: marginAvatarName), // work like margin
+                    SizedBox(height: nameMaxHeight),	// (A) => mimic the space for the name (same with B)
+                  ],
+                ),
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: SizedBox(	// (B) => has the same height with SizedBox above
+                      height: nameMaxHeight,
+                      child: Text(
+                        data.name,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,	// align text to center
+                        maxLines: 2,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+```
+
+- Okay, looks good. Seems that we've finished _User's Name_.
+
+![User's Name completed](https://i.imgur.com/UR8Dskw.png#center)
+
+Next is _<u>Story Circle</u>_:
+
+- As you can see, _Avatar_ is overlap with _Story Circle_, so I will use _Stack_:
+
+```dart
+ Column(
+   children: [
+     Expanded(
+       child: Stack(	// add stack here
+         children: [
+           Padding(
+             padding: const EdgeInsets.all(4.0),	// space between avatar and story circle
+             child: AspectRatio(
+               aspectRatio: 1,
+               child: Material(
+                 clipBehavior: Clip.hardEdge,
+                 type: MaterialType.circle,
+                 color: Colors.transparent,
+                 child: Ink.image(
+                   fit: BoxFit.cover,
+                   image: NetworkImage(data.img),
+                 ),
+               ),
+             ),
+           ),
+           Positioned.fill(
+             child: CircularProgressIndicator(	// story circle
+               value: data.hasStory == true ? 1 : 0,
+             ),
+           ),
+         ],
+       ),
+     ),
+     SizedBox(height: marginAvatarName), // work like margin
+     SizedBox(height: nameMaxHeight),
+   ],
+ ),
+```
+
+- Actually, _CircularProgressIndicator_ is the progress circle, but I can you it as a circle here with a little trick as you can see. If value is null, that widget will be in loading state with fancy animation.
+- Okay, _Story Circle_ is done.
+
+![Story Circle Completed](https://i.imgur.com/E7BN6L8.png#center)
+
+The last one - _<u>Active Indicator</u>_:
+
+- About the shape, it contains 2 concentric circles: 1 bigger has the same color with background, and a smaller which is green. But, the most difficulty of this widget is its position. It takes me about half an hour to solve it. And this is my solution:
+
+![Frame Image](https://i.imgur.com/22VEnYL.png#center)
+
+![Real Wireframe](https://i.imgur.com/QaboeKf.png#center)
+
+- And here is my implementation:
+
+```dart
+Column(
+  children: [
+    Expanded(
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Material(
+                clipBehavior: Clip.hardEdge,
+                type: MaterialType.circle,
+                color: Colors.transparent,
+                child: Ink.image(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(data.img),
+                ),
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: CircularProgressIndicator(
+              value: data.hasStory ? 1 : 0,
+            ),
+          ),
+          if (data.active)	// just show active indicator if active
+          Positioned.fill(	// it's also a layer overlap with the avatar
+            child: Align(
+              alignment: Alignment.bottomRight,	// place the bigger box at the bottom right of avatar circle
+              child: FractionallySizedBox(	// same with SizedBox, but height and width is percent.
+                heightFactor: 0.5,	// 50%
+                widthFactor: 0.5,	// 50%
+                child: Align(
+                  alignment: Alignment.centerRight,	// place the smaller box the center right of bigger box.
+                  child: FractionallySizedBox(
+                    heightFactor: 0.5,	// 50%
+                    widthFactor: 0.5,	// 50%
+                    child: Material(	// Outer circle
+                      clipBehavior: Clip.hardEdge,
+                      type: MaterialType.circle,
+                      color: Colors.white,	// same color with background
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),	// space between outer and inner circle
+                        child: Material(
+                          clipBehavior: Clip.hardEdge,
+                          type: MaterialType.circle,
+                          color: Colors.green,	// inner circle has green color
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    ),
+    SizedBox(height: marginAvatarName),
+    SizedBox(height: nameMaxHeight),
+  ],
+),
+```
+
+- Finally, this is our final result:
+
+![Final Result](https://i.imgur.com/7U5Rjq9.png#center)
+
+_Last but not least, this is <u>GitHub repo</u>: https://github.com/NVTri1010/Example-List-Messenger _
+
+---
+
+# Conclusion
+
+In conclusion, although this is just a simple widget, we still get some experiences: how to manage the dimension of widget, how to use stack, the think to make the flexible widget, ... Anyway, the tutorial just carries my own opinion and thoughts, and I'm just a new guy in **Flutter**, so if there is any mistakes in my post, please comment and let me know. I would love to receive any comments whether positive or negative. That is also great motivation for me to have the next sharing. Many thanks.
+
+P/S: as mentioned below, I'm a web developer, _React_ and _Javascript_ are my cores. So, I will have a post to compare between **React-Native** and **Flutter**, and share my difficulties when starting to learn Flutter as a JS dev.

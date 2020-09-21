@@ -1,0 +1,41 @@
+.container {
+  width: 33%;
+  padding: 1rem;
+  font-family: 'Nunito';
+}
+.container:hover {
+  transition: 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.img {
+  width: 100%;
+  padding-top: 66.66%;
+  border-radius: 3px;
+}
+.title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: black;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.date {
+  color: #ccc;
+  text-align: right;
+  font-size: 0.8rem;
+}
+.content {
+  padding: 0 1rem;
+}
+
+@media only screen and (max-width: 928px) {
+  .container {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .container {
+    width: 100%;
+  }
+}
