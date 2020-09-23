@@ -44,3 +44,17 @@
   display: block;
   margin: auto;
 }
+.content table {
+  border-collapse: collapse;
+  margin: 1rem 0 2rem;
+}
+.content thead tr {
+  border-bottom: 1px solid #333;
+}
+.content tr {
+  border-bottom: 1px solid #ccc;
+}
+.content tr td,
+.content tr th {
+  padding: 0.5rem 1rem;
+}
