@@ -1,21 +1,22 @@
 # Introduction
 
-A brief about myself: I'm a web developer, and **_ReactJS_** is my strong. In addition, I've used **_React Native_** (a cross-platform library which also use JS) for building several native apps. Then, I heard about Flutter, and its impressive improvement in 2019. And this post was written when I was starting to learn **Flutter**.
-In this post, I will try to implement a horizontal list of a very popular mobile app: _Facebook Messenger_. I will try all my best to make this widget has flexible height, that means it can be reused in many layouts. And if you are getting to know **Flutter** (like me), I believe that this post will give you a few experiences.
+A brief about myself: I'm a _Web Developer_, and **_ReactJS_** is my strength. In addition, I've used **_React Native_** (a cross-platform library which also use _Javascript)_ for building several native apps. Then, I heard about **_Flutter_** and its impressive improvement in 2019. The more I learned about **_Flutter_**, the more fascinated I got. Therefore I decided to write this post to share the knowledge I’ve learned and my own experiences when applying it.
+
+In this post, I will try to implement a horizontal list of a very popular mobile app: _Facebook Messenger_. I will try all my best to make this widget has flexible height, that means it can be reused in many layouts. And if you are getting to know **_Flutter_**, I believe that there are some helpful insights you can find in this post.
 
 ![Model Image](https://i.imgur.com/HiYnwpe.png#center)
 
 ---
 
-# Start to implement
+# Implementation
 
 ## 1. Preparing
 
-Of course, the first thing that you need is creating a new Flutter project. If you don't know how to do that, **Flutter** had a very detail guide about this: https://flutter.dev/docs/get-started/test-drive
+There is no doubt that the first thing you need is creating a new **_Flutter_** project. If you don't know how to do that, **_Flutter_** had a very detailed guide on its website: https://flutter.dev/docs/get-started/test-drive
 
-## 2. Create model, mock data
+## 2. Creating model, mock data
 
-Create _user_model.dart_ to store User model:
+First, you need to create _user_model.dart_ to store _User model_
 
 ```dart
 class UserModel {
@@ -35,7 +36,7 @@ class UserModel {
 }
 ```
 
-Then, we will create _data.dart_ file to store our mock data:
+Then, you create _data.dart_ file to store your mock data:
 
 ```dart
 import 'package:list_item_demo/user_model.dart';
@@ -81,12 +82,12 @@ List<UserModel> mockUsers = [
 ];
 ```
 
-Okay, we've done the preparing for _Model_ and _Data_.
+Okay, you've done preparing for _Model_ and _Data_.
 
-## 3. Create Users List widget
+## 3. Creating Users List widget
 
-Now, we are going to do the most important (and also the most difficult) step in this tutorial: implement **_Users List_** and **_User Item_** widget.
-First, we will create _users_list.dart_, then create **_Users List_** widget:
+Now, you are going to do the most important (and also the most difficult) step in this tutorial, that is implementing **_Users List_** and **_User Item_** widget.
+First, you will need to create _users_list.dart_, then create **_Users List_** widget:
 
 ```dart
 class UsersListWidget extends StatelessWidget {
@@ -106,9 +107,9 @@ class UsersListWidget extends StatelessWidget {
 }
 ```
 
-- _Note:_ we just need _StatelessWidget_ here, because we don't need state in this widget. You can read more about the differences of _Stateful_ and _Stateless_ in [this link](https://flutter.dev/docs/development/ui/interactive#:~:text=If%20a%20widget%20can%20change,are%20examples%20of%20stateless%20widgets.&text=A%20widget's%20state%20is%20stored,widget's%20state%20from%20its%20appearance).
+- _Note:_ you only need _StatelessWidget_ here, because you don't need state in this widget. You can read more about the differences of _Stateful_ and _Stateless_ in [this link](https://flutter.dev/docs/development/ui/interactive#:~:text=If%20a%20widget%20can%20change,are%20examples%20of%20stateless%20widgets.&text=A%20widget's%20state%20is%20stored,widget's%20state%20from%20its%20appearance).
 
-After that, use _UsersListWidget_ in _main.dart_:
+After that, you use _UsersListWidget_ in _main.dart_:
 
 ```dart
 class MyApp extends StatelessWidget {
@@ -152,9 +153,9 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
-Then, we will move to the implement of **_User Item_** widget:
+Then, let'sl move to the implement of **_User Item_** widget:
 
-Create the widget:
+Creating the widget:
 
 ```dart
 class UserItemWidget extends StatelessWidget {
@@ -171,9 +172,9 @@ class UserItemWidget extends StatelessWidget {
 }
 ```
 
-As we can see, there are several part in an **_User item_**: <u>_Rounded Avatar Image_</u>, <u>_User's Name_</u>, <u>_Story Circle_</u>, and _<u>Active Indicator</u>_. So, we will do each part one by one in order. And <u>_avatar_</u> is the first one:
+As you can see, there are several parts in an **_User item_**: <u>_Rounded Avatar Image_</u>, <u>_User's Name_</u>, <u>_Story Circle_</u>, and _<u>Active Indicator</u>_. So, you will do each part one by one respectively. The first one is the _<u>Avatar</u>_:
 
-- Add an square image by using _Aspect Ratio_:
+- Adding a square image by using _Aspect Ratio_:
 
 ```dart
 @override
@@ -196,7 +197,7 @@ Widget build(BuildContext context) {
 
 ![Square Images](https://i.imgur.com/aJTzATf.png#center)
 
-- Then, make the images rounded by adding _Material_ widget with _MaterialType.circle_:
+- Then, making the images rounded by adding _Material_ widget with _MaterialType.circle_:
 
 ```dart
 AspectRatio(
@@ -213,7 +214,7 @@ AspectRatio(
 ),
 ```
 
-- Add some space between items:
+- Adding some space between items:
 
 ```dart
 return Padding(
@@ -223,7 +224,7 @@ return Padding(
           Expanded( ....
 ```
 
-- We will have this result. And that also means _Rounded Avatar Image_ has been done.
+- Here is the result. As you can see, the _Rounded Avatar Image_ has been done.
 
 ![Completed Avatar](https://i.imgur.com/gFNLdvx.png#center)
 
@@ -387,7 +388,7 @@ Next is _<u>Story Circle</u>_:
  ),
 ```
 
-- Actually, _CircularProgressIndicator_ is the progress circle, but I can you it as a circle here with a little trick as you can see. If value is null, that widget will be in loading state with fancy animation.
+- Actually, _CircularProgressIndicator_ is the progress circle, but you can use it as a circle here with a little trick as you can see. If value is null, that widget will be in loading state with fancy animation.
 - Okay, _Story Circle_ is done.
 
 ![Story Circle Completed](https://i.imgur.com/E7BN6L8.png#center)
@@ -467,7 +468,7 @@ Column(
 ),
 ```
 
-- Finally, this is our final result:
+- So this is your final result:
 
 ![Final Result](https://i.imgur.com/7U5Rjq9.png#center)
 
@@ -477,6 +478,6 @@ _Last but not least, this is <u>GitHub repo</u>: https://github.com/NVTri1010/Ex
 
 # Conclusion
 
-In conclusion, although this is just a simple widget, we still get some experiences: how to manage the dimension of widget, how to use stack, the think to make the flexible widget, ... Anyway, the tutorial just carries my own opinion and thoughts, and I'm just a new guy in **Flutter**, so if there is any mistakes in my post, please comment and let me know. I would love to receive any comments whether positive or negative. That is also great motivation for me to have the next sharing. Many thanks.
+In conclusion, although this is just a simple widget, we still get some experiences: how to manage the dimension of widget, how to use stack, the think to make the flexible widget, ... Please take into account that this tutorial carries personal viewpoints of me, a very new guy in **Flutter** so if there are any mistakes, please kindly comment and let me know. I would love to receive any feedback whether positive or negative. That is also a great motivation for me to conduct the next sharing. Many thanks.
 
-P/S: as mentioned below, I'm a web developer, _React_ and _Javascript_ are my cores. So, I will have a post to compare between **React-Native** and **Flutter**, and share my difficulties when starting to learn Flutter as a JS dev.
+_<u>P/S:</u>_ as mentioned below, I'm a _Web Developer_, _React_ and _Javascript_ are my cores. So, I will have a post to compare between **React-Native** and **Flutter**, and share my difficulties when starting to learn **Flutter** as a _Javascript_ _Dev_.
