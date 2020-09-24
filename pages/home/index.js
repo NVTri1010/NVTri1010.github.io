@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import classnames from 'classnames'
 
+import { Image } from 'components'
 import styles from './Home.module.css'
 import PrevIcon from 'svg/ic_prev.svg'
 import NextIcon from 'svg/ic_next.svg'
@@ -30,7 +31,8 @@ const HomePage = () => {
                 ))}
               </ul>
             </div>
-            <img
+            <Image
+              className={styles.image}
               height='100%'
               alt='portfolio'
               src='/assets/images/portfolio.jpg'
