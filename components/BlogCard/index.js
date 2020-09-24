@@ -3,6 +3,7 @@ import Link from 'next/link'
 import classnames from 'classnames'
 
 import { formatDate } from 'helpers/format'
+import { ProgressiveImage } from 'components'
 import styles from './BlogCard.module.css'
 
 const BlogCard = ({ id, title, img, description, createdDate }) => {
@@ -14,7 +15,7 @@ const BlogCard = ({ id, title, img, description, createdDate }) => {
   return (
     <Link href='/blogs/[id]' as={`/blogs/${id}`} passHref>
       <a className={classnames([styles.container, 'fade-in'])}>
-        <div style={imgStyle} className={styles.img} />
+        <ProgressiveImage src={img} ratio={1.5} />
         <div className={styles.content}>
           <h5 className={styles.title}>{title}</h5>
           <p className={styles.description}>{description}</p>
